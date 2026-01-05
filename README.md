@@ -7,7 +7,7 @@ This project provides a **GitLab Model Context Protocol (MCP)** server that enab
 ### 1. Clone the Repository
 Clone this project to your local machine:
 ```bash
-git clone https://gitlab.com/your-org/gitlab-code-reviewer.git
+git clone https://github.com/Ragesh011/gitlab_code_reviewer.git
 cd gitlab-code-reviewer
 ```
 
