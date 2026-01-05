@@ -28,7 +28,7 @@ You must provide a GitLab Personal Access Token for the MCP server to authentica
 2.  Click on the **User Icon** (top right corner).
 3.  Click **Edit profile**, then select **Access Tokens** from the sidebar.
 4.  Click **Add new token**.
-4.  **Name**: `MCP-Code-Reviewer` (or similar).
+4.  **Name**: `Automated-Code-Reviewer` (or similar).
 5.  **Scopes**: Select `api` (required for reading MRs and posting comments).
 6.  Click **Create personal access token**.
 7.  **Copy the token immediately**. You won't see it again.
