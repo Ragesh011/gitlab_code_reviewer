@@ -51,16 +51,19 @@ This document describes the implemented Model Context Protocol (MCP) server for 
 
 To ensure accurate line tracking and systematic review, Agents **MUST** follow this workflow:
 
-1.  **Read Guidelines**: Always read `SPRING_BOOT_CODING_GUIDELINES.md` to load the latest rules into context.
-2.  **Get Info**: Call `mr_info` to get `changes_count`. Use this to calculate the number of pages needed for `mr_diff_paged` (Total Changes / per_page).
-3.  **Fetch Strategy**: Use `changes_count` to plan pagination.
+1.  **Target Branch Resolution**: If the user prompt does NOT specify a target branch:
+    *   Default to `main`.
+    *   If no MR is found for `main`, retry with `master`.
+2.  **Read Guidelines**: Always read `JAVA_CODING_GUIDELINES.md` to load the latest rules into context.
+3.  **Get Info**: Call `mr_info` to get `changes_count`. Use this to calculate the number of pages needed for `mr_diff_paged` (Total Changes / per_page).
+4.  **Fetch Strategy**: Use `changes_count` to plan pagination.
     *   Set `per_page` to a safe limit (e.g., 5).
     *   Calculate required pages: `ceil(changes_count / per_page)`.
     *   **Loop**: Call `mr_diff_paged` for each page `1` to `N` to retrieve all file changes.
-4.  **Parse**: Pass the `diff` string of each file to `mr_diff_parser`.
-5.  **Analyze**: Iterate through the JSON output from the parser.
+5.  **Parse**: Pass the `diff` string of each file to `mr_diff_parser`.
+6.  **Analyze**: Iterate through the JSON output from the parser.
     *   Only analyze items where `action == "ADDED"`.
     *   Use `lineNumber` from the parser for reporting.
-6.  **Comment**: Post violations using `mr_review_comment`.
+7.  **Comment**: Post violations using `mr_review_comment`.
 
 **Constraint**: Do NOT create temporary local files (e.g., scripts, json dumps) to perform reviews. Rely exclusively on the MCP tool outputs and in-context reasoning.
